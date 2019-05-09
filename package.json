@@ -1,0 +1,63 @@
+{
+  "name": "express-vue-web-slush",
+  "version": "1.0.0",
+  "description": "express、vue脚手架",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "dev-env": "cross-env NODE_ENV=development",
+    "pro-env": "cross-env NODE_ENV=production",
+    "start:client": "vue-cli-service serve",
+    "build:client": "vue-cli-service build",
+    "build:server": "babel --config-file ./server.babel.config.js src/server --out-dir dist/server/",
+    "babel-server": "npm run dev-env && babel-node --config-file ./server.babel.config.js -- ./src/server/main.js",
+    "build": "npm run clean && npm run build:client && npm run build:server",
+    "dev": "babel-node --config-file ./server.babel.config.js -- ./src/dev.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "core-js": "^2.6.5",
+    "vue": "^2.6.10",
+    "vue-property-decorator": "^8.1.1",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1",
+    "vuex-class": "^0.3.2",
+    "vuex-module-decorators": "^0.9.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@vue/cli-plugin-babel": "^3.7.0",
+    "@vue/cli-service": "^3.7.0",
+    "awilix": "^4.2.2",
+    "awilix-express": "^2.1.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "node-sass": "^4.9.0",
+    "nodemon": "^1.19.0",
+    "rimraf": "^2.6.3",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yacan8/express-vue-web-slush.git"
+  },
+  "keywords": [
+    "vue",
+    "express"
+  ],
+  "author": "can.yang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yacan8/express-vue-web-slush/issues"
+  },
+  "homepage": "https://github.com/yacan8/express-vue-web-slush#readme"
+}

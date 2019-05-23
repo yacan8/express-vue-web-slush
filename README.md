@@ -7,7 +7,7 @@ server与client一个命令启动。
 ### 服务端技术栈
 
 *   [框架 Express](http://expressjs.com/)
-*   [依赖注入 archiver](https://www.archiverjs.com/)
+*   [依赖注入 awilix](https://github.com/jeffijoe/awilix)
 
 ### 客户端技术栈
 

@@ -8,6 +8,7 @@ server与client一个命令启动。
 
 *   [框架 Express](http://expressjs.com/)
 *   [依赖注入 awilix](https://github.com/jeffijoe/awilix)
+*   [数据持久化 sequelize](https://github.com/sequelize/sequelize)
 
 ### 客户端技术栈
 

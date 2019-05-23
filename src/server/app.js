@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import fs from 'fs';
 import { baseMiddleware } from './middleware/base';
-// import initialize from './initialize';
+import initialize from './initialize';
 import cookieParser from 'cookie-parser';
 
 const app = express();
@@ -24,11 +24,20 @@ app.use('/api', loadControllers('api/*.js', {
 }));
 
 export default async function run() {
-  // await initialize(app);
+  await initialize(app);
+
+  // 依赖注入配置service层和dao层
+  container.loadModules(['services/*.js', 'daos/*.js'], {
+    formatName: 'camelCase',
+    register: asClass,
+    cwd: path.resolve(__dirname)
+  });
+
   app.get('*', (req, res) => {
     const html = fs.readFileSync(path.resolve(__dirname, '../client', 'index.html'), 'utf-8');
     res.send(html);
   });
+
   app.listen(9001, err => {
     if (err) {
       console.error(err);

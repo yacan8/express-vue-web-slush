@@ -21,7 +21,7 @@ export default class Home extends Vue {
   msg = 'Welcome to Your Vue.js App';
   
   mounted() {
-    get('/api/index/getData').then(res => {
+    get('/api/todo/getData').then(res => {
       if (res.success) {
         this.msg = res.data.info;
       }

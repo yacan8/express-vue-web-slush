@@ -1,8 +1,6 @@
 {
     "ignore": [
       ".git",
-      "node_modules/**/node_modules",
-      "documents",
-      "release"
+      "node_modules/**/node_modules"
     ]
 }

@@ -1,7 +1,7 @@
 import { route, GET } from 'awilix-express';
 
-@route('/index')
-export default class SupplyAPI {
+@route('/todo')
+export default class TodoAPI {
 
   @route('/getData')
   @GET()

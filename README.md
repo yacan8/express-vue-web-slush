@@ -7,6 +7,7 @@ server与client一个命令启动。
 ### 服务端技术栈
 
 *   [框架 Express](http://expressjs.com/)
+*   [热更新 nodemon](https://github.com/remy/nodemon)
 *   [依赖注入 awilix](https://github.com/jeffijoe/awilix)
 *   [数据持久化 sequelize](https://github.com/sequelize/sequelize)
 

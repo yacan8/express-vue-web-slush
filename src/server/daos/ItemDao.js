@@ -8,4 +8,11 @@ export default class ItemDao extends BaseDao {
         super(modules);
     }
 
+    async getList() {
+        return await this.findAll();
+    }
+
+    async addItem(item) {
+        return await this.create(item);
+    }
 }

@@ -2,7 +2,7 @@
  * @file app
  */
 import express from 'express';
-import { Lifetime } from 'awilix';
+import { Lifetime, asClass } from 'awilix';
 import { loadControllers, scopePerRequest } from 'awilix-express';
 import container from './container';
 import bodyParser from 'body-parser';

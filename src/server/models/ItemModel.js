@@ -11,10 +11,11 @@ export default function(sequelize, DataTypes) {
         },
         state: {
             type: DataTypes.INTEGER,
-            field: 'text'
+            field: 'state'
         }
     }, {
-        tableName: 'item'
+        tableName: 'item',
+        timestamps: false
     });
 
     return Item;

@@ -5,7 +5,7 @@
 import db from '../models';
 
 export default class Dao {
-    
+
     constructor(modules) {
         const request = modules.request;
         this.transaction = request.transaction;
@@ -24,6 +24,18 @@ export default class Dao {
         });
     }
 
+    update(updateData, params) {
+        return new Promise((resolve, reject) => {
+            const Model = this.getModel();
+            Model.update(updateData, params).spread((affectedCount, affectedRows) => {
+                resolve(true);
+            }).catch(e => {
+                console.error(e);
+                resolve(false);
+            });
+        });
+    }
+
     delete(params) {
         return new Promise((resolve, reject) => {
             const Model = this.getModel();
@@ -34,6 +46,15 @@ export default class Dao {
             }).catch(e => {
                 console.error(e);
                 resolve(false);
+            });
+        });
+    }
+
+    findOne(params) {
+        return new Promise((resolve, reject) => {
+            const Model = this.getModel();
+            Model.findOne(params).then(data => {
+                resolve(data);
             });
         });
     }

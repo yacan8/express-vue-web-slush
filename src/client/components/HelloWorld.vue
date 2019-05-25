@@ -4,7 +4,9 @@
     <h3>服务端技术栈</h3>
     <ul>
       <li><a href="http://expressjs.com/" target="_blank" rel="noopener">框架 Express</a></li>
+      <li><a href="https://nodemon.io/" target="_blank" rel="noopener">热更新 nodemon</a></li>
       <li><a href="https://www.archiverjs.com/" target="_blank" rel="noopener">依赖注入 archiver</a></li>
+      <li><a href="https://github.com/sequelize/sequelize" target="_blank" rel="noopener">数据持久化 sequelize</a></li>
     </ul>
     <h3>客户端技术栈</h3>
     <ul>

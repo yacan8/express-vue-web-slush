@@ -1,18 +1,18 @@
 import BaseDao from './base';
 
 export default class ItemDao extends BaseDao {
-    
-    modelName = 'Item';
 
-    constructor(modules) {
-        super(modules);
-    }
+  modelName = 'Item';
 
-    async getList() {
-        return await this.findAll();
-    }
+  constructor(modules) {
+    super(modules);
+  }
 
-    async addItem(item) {
-        return await this.create(item);
-    }
+  async getList() {
+    return await this.findAll();
+  }
+
+  async addItem(item) {
+    return await this.create(item);
+  }
 }

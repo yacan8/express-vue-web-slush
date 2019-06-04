@@ -13,6 +13,6 @@ export default class ItemDao extends BaseDao {
   }
 
   async addItem(item) {
-    return await this.create(item);
+    return await this.insert(item);
   }
 }

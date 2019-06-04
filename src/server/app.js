@@ -27,7 +27,7 @@ export default async function run() {
   await initialize(app);
 
   // 依赖注入配置service层和dao层
-  container.loadModules(['services/*.js', 'daos/*.js'], {
+  container.loadModules(['services/*Service.js', 'daos/*Dao.js'], {
     formatName: 'camelCase',
     register: asClass,
     cwd: path.resolve(__dirname)

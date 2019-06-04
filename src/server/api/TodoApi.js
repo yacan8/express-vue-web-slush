@@ -18,24 +18,24 @@ export default class TodoAPI {
   @route('/getTodolist')
   @GET()
   async getTodolist(req, res) {
-    const [err, todolist] = await this.todoService.getList();
-    if (err) {
-      res.failPrint('服务端异常');
+    const { success, data: todolist, message } = await this.todoService.getList();
+    if (!success) {
+      res.failPrint(message);
       return;
     }
-    res.successPrint('查询成功', todolist);
+    res.successPrint(message, todolist);
   }
 
   @route('/addTodoItem')
   @POST()
   async addTodoItem(req, res) {
     const { name, state } = req.body;
-    const [err] = await this.todoService.addTodoItem({name, state});
-    if (err) {
-      res.failPrint(err.message);
+    const { success, message } = await this.todoService.addTodoItem({name, state});
+    if (!success) {
+      res.failPrint(message);
       return;
     }
-    res.successPrint('添加成功');
+    res.successPrint(message);
   }
 
   
@@ -43,13 +43,11 @@ export default class TodoAPI {
   @POST()
   async updateItem(req, res) {
     const { name, state } = req.body;
-    const [err] = await this.todoService.updateItem({name, state});
-    if (err) {
-      res.failPrint(err.message);
+    const { success, message } = await this.todoService.updateItem({name, state});
+    if (!success) {
+      res.failPrint(message);
       return;
     }
-    res.successPrint('操作成功');
+    res.successPrint(message);
   }
-
-
 }

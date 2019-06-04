@@ -1,9 +1,10 @@
 /**
- * @file base model
+ * @file base dao
  */
 import db from '../models';
+import { promiseCatch } from '../util';
 
-export default class Dao {
+export default class BaseDao {
 
   constructor(modules) {
     const request = modules.request;
@@ -11,60 +12,46 @@ export default class Dao {
     this.sequelize = db.sequelize;
   }
 
-  create(params) {
-    return new Promise((resolve, reject) => {
-      const Model = this.getModel();
-      Model.create(params).then(modol => {
-        resolve(modol || []);
-      }).catch(e => {
-        console.error(e);
-        resolve(false);
-      });
-    });
+  insert(params) {
+    const Model = this.getModel();
+    const config = this.getConfig();
+    return promiseCatch(Model.create(params, config));
   }
 
-  update(updateData, params) {
-    return new Promise((resolve, reject) => {
-      const Model = this.getModel();
-      Model.update(updateData, params).spread((affectedCount, affectedRows) => {
-        resolve(true);
-      }).catch(e => {
-        console.error(e);
-        resolve(false);
-      });
-    });
+  batchInsert(params) {
+    const Model = this.getModel();
+    const config = this.getConfig();
+    return promiseCatch(Model.bulkCreate(params, config));
   }
 
   delete(params) {
-    return new Promise((resolve, reject) => {
-      const Model = this.getModel();
-      Model.destroy({
-        where: params
-      }).then(affectedRows => {
-        resolve(true);
-      }).catch(e => {
-        console.error(e);
-        resolve(false);
-      });
-    });
+    const Model = this.getModel();
+    const config = this.getConfig();
+    return promiseCatch(Model.destroy({
+      ...config,
+      ...params
+    }));
   }
 
   findOne(params) {
-    return new Promise((resolve, reject) => {
-      const Model = this.getModel();
-      Model.findOne(params).then(data => {
-        resolve(data);
-      });
-    });
+    const Model = this.getModel();
+    return promiseCatch(Model.findOne(params).then(models => {
+      return models || null;
+    }));
   }
 
-  findAll() {
-    return new Promise((resolve, reject) => {
-      const Model = this.getModel();
-      Model.findAll().then(data => {
-        resolve(data || []);
-      });
-    });
+  findAll(params) {
+    const Model = this.getModel();
+    return promiseCatch(Model.findAll(params));
+  }
+
+  update(params, query) {
+    const Model = this.getModel();
+    const config = this.getConfig();
+    return promiseCatch(Model.update(params, {
+      ...config,
+      ...query
+    }));
   }
 
   getModel() {
@@ -79,26 +66,17 @@ export default class Dao {
     return config;
   }
 
-  insert(params) {
-    const Model = this.getModel();
-    const config = this.getConfig();
-    return Model.create(params, config).then(model => {
-      return model;
-    }).catch(e => {
-      console.error(e);
-      return false;
-    });
+  commit() {
+    if (this.transaction) {
+      return promiseCatch(this.transaction.commit());
+    }
+    return promiseCatch(Promise.resolve());
   }
 
-  batchInsert(params) {
-    const Model = this.getModel();
-    const config = this.getConfig();
-    return Model.bulkCreate(params, config).then(() => {
-      return true;
-    }).catch(e => {
-      console.error(e);
-      return false;
-    });
+  rollback() {
+    if (this.transaction) {
+      return promiseCatch(this.transaction.rollback());
+    }
+    return promiseCatch(Promise.resolve());
   }
-
 }

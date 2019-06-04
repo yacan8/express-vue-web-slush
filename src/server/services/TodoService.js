@@ -1,47 +1,47 @@
-export default class TodoService {
+import BaseService from './base';
+
+export default class TodoService extends BaseService {
   constructor({ itemDao }) {
+    super();
     this.itemDao = itemDao;
   }
 
   async getList() {
-    try {
-      const list = await this.itemDao.getList();
-      return [null, list];
-    } catch (e) {
-      console.error(e);
-      return [new Error('服务端异常'), null];
+    const [err, list] = await this.itemDao.getList();
+    if (err) {
+      return this.fail('获取列表失败', null, err);
     }
+    return this.success('查询成功', list);
   }
 
   async addTodoItem(item) {
-    try {
-      const itemExsit = await this.itemDao.findOne({
-        where: {
-          ...item
-        }
-      });
-      if (itemExsit) {
-        return [new Error('已存在'), false];
+    const [exsitErr, itemExsit] = await this.itemDao.findOne({
+      where: {
+        name: item.name
       }
-      const addResult = await this.itemDao.addItem(item);
-      return [null, addResult];
-    } catch (e) {
-      console.error(e);
-      return [new Error('服务端异常'), null];
+    });
+    if (exsitErr) {
+      return this.fail('添加失败', null, err);
     }
+    if (itemExsit) {
+      return this.fail('已存在');
+    }
+    const [addErr] = await this.itemDao.addItem(item);
+    if (addErr) {
+      return this.fail('添加失败', null, err);
+    }
+    return this.success('添加成功')
   }
 
   async updateItem(item) {
-    try {
-      const updateItem = await this.itemDao.update(item, {
-        where: {
-          name: item.name,
-        }
-      });
-      return [null, updateItem];
-    } catch (e) {
-      console.error(e);
-      return [new Error('服务端异常'), null];
+    const [err, updateItem] = await this.itemDao.update(item, {
+      where: {
+        name: item.name,
+      }
+    });
+    if (err) {
+      return this.fail('更新失败');
     }
+    return this.success('更新成功');
   }
 }

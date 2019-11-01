@@ -49,7 +49,7 @@
     "properties": "^1.2.1",
     "rimraf": "^2.6.3",
     "sass-loader": "^7.1.0",
-    "sequelize": "^5.8.6",
+    "sequelize": "^5.15.1",
     "vue-template-compiler": "^2.5.21"
   },
   "repository": {
